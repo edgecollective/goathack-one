@@ -11,6 +11,14 @@ import onewire, ds18x20
 import ssd1306
 from machine import I2C
 
+WIFI_NET = 'wifi_essid'
+WIFI_PASSWORD = 'wifi_password'
+
+base_url='https://wolfesneck.farmos.net/farm/sensor/listener/'
+public_key='[farmOS Public Key]'
+private_key='[farmOS Private Key]'
+
+
 i2c = I2C(-1, Pin(14), Pin(2))
 oled = ssd1306.SSD1306_I2C(128, 64, i2c)
 oled.fill(0)
@@ -27,14 +35,6 @@ done_pin.value(0)
 
 time.sleep(3)
 
-
-base_url='https://wolfesneck.farmos.net/farm/sensor/listener/'
-#public_key='054d3116a74fae5dd36550013d50c848'
-#private_key='014d3116a74fae5dd36550013d50c848'
-
-public_key='645b7f8bcac73d298ffe2e035c0d1266'
-private_key='3f79ca9545ed872c94c7dd917ac8f357'
-
 url = base_url+public_key+'?private_key='+private_key
 
 headers = {'Content-type':'application/json', 'Accept':'application/json'}
@@ -44,6 +44,7 @@ time.sleep(2)
 measure_count = 0
 
 def post_data():
+
     try:
     
     
@@ -111,8 +112,7 @@ def post_data():
 	print('Status', r.status_code)
    	return "posted"
 
-WIFI_NET = 'Southbridge Hotel Guest'
-WIFI_PASSWORD = 'SHCC2018'
+
 
 def do_connect():
     import network
@@ -130,9 +130,6 @@ def do_connect():
 
 
 while True:
-
-    
-
 
     do_connect()
 
